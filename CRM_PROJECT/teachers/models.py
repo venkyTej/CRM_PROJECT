@@ -9,7 +9,7 @@ class Teacher(models.Model):
     contact = models.CharField(max_length=30)
     email = models.EmailField(max_length=20)
     
-    image =models.ImageField(upload_to="teachers/", blank=True, null=True)  # admin USERNANE
+    image =models.ImageField(upload_to="teachers/", blank=True, null=True)  
                                                                         
 
 
