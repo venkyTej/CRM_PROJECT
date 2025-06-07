@@ -20,10 +20,10 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Manage <b>Students</b></h2>
+						<h2>staff <b>Management</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Students</span></a>
+						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New staff Member</span></a>
 						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
                 </div>
@@ -38,24 +38,18 @@
 							</span>
 						</th>
 						<th>Image</th>
-						
                         <th>Name</th>
-						<th>Roll number</th>
-						
-						<th>Gender</th>
-						<th>Enroll course</th>
-						<th>date of birth</th>
-						<th>Parent Nmae</th>
-						<th>Education</th>
-                        <th>Email</th>
-						<th>Date of Joining</th>
-                        <th>Fees paid</th>
+                        <th>gender</th>
+						<th>Position</th>
+                        <th>Experience</th>
+						<th>Date of joining</th>
 						<th>contact</th>
+						<th>email</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-					{% for i in allstudents %}
+					{% for i in allstaff %}
                     <tr>
 						
 						<td>
@@ -66,21 +60,16 @@
 						</td>
 						<td>
 							{% if i.image %}
-							<img src="{{i.image.url}}" alt="student image" width="50">
+							<img src="{{i.image.url}}" alt="staff image" width="50">
 							{% endif %}
 						</td>
                         <td>{{i.name}}</td>
-						<td>{{i.roll_number}}</td>
                         <td>{{i.gender}}</td>
-						<td>{{i.enroll_course}}</td>
-						<td>{{i.Dob}}</td>
-						<td>{{i.parent_name}}</td>
-						<td>{{i.education}}</td>
-						<td>{{i.Email}}</td>
+						<th>{{i.Position}}</th>
+						<th>{{i.experience}}</th>
 						<td>{{i.date_of_joining}}</td>
-						<td>{{i.fees_paid}}</td>
 						<td>{{i.contact}}</td>
-                        
+                        <td>{{i.email}}</td>
                         <td>
                             <a href="#editEmployeeModal-{{forloop.counter}}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteEmployeeModal-{{forloop.counter}}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -91,7 +80,7 @@
             </table>
 			<div class="clearfix">
                 <!-- <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div> -->
-				Showing <b>{{ allstudents|length }}</b> out of <b>{{ allstudents.count }}</b> entries
+				Showing <b>{{ allstaff|length }}</b> out of <b>{{ allstaff.count }}</b> entries
 
                 <ul class="pagination">
                     <li class="page-item disabled"><a href="#">Previous</a></li>
@@ -109,10 +98,10 @@
 	<div id="addEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form action="{% url 'addstudent' %}" method="post" enctype="multipart/form-data">
+				<form action="{% url 'addstaff' %}" method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="modal-header">						
-						<h4 class="modal-title">Add Student</h4>
+						<h4 class="modal-title">Add staff</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
@@ -120,11 +109,7 @@
 							<label>Name</label>
 							<input name="name" type="text" class="form-control" required>
 						</div>
-						<div class="form-group">
-							<label>Roll number</label>
-							<input name="roll_number" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
+							<div class="form-group">
    						 <label for="gender">Gender</label>
     					<select name="gender" class="form-control" required>
         				<option value="">-- Select Gender --</option>
@@ -134,52 +119,30 @@
    						 </select>
 						</div>
 						<div class="form-group">
-   						 <label for="enroll_course">Enroll courses</label>
-    					<select name="enroll_course" class="form-control" required>
-        				<option value="">-- Select Course --</option>
-      					  <option value="Male">python</option>
-        					<option value="Female">Java</option>
-							<option value="Female">UI/Ux</option>
-      						
-   						 </select>
-						</div>
-
-						<div class="form-group">
-							<label>date of birth</label>
-							<input name="dob" type="date" class="form-control" required>
-						</div>					
-						<div class="form-group">
-							<label>Parent name</label>
-							<input name="parent_name" type="text" class="form-control" required>
-						</div>	
-						<div class="form-group">
-							<label>Education</label>
-							<input name="education" type="text" class="form-control" required>
+							<label>Position</label>
+							<input name="position" type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input name="email" type="email" class="form-control" required>
+							<label>Experience</label>
+							<input name="experience" type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Date of joining</label>
 							<input name="date_of_joining" type="date" class="form-control" required>
-						</div>	
-							 <label for="fees_paid">Fess paid</label>
-    					<select name="fees_paid" class="form-control" required>
-        				<option value="">-- Select option --</option>
-      					  <option value="yes">yes</option>
-        					<option value="no">No</option>
-      						
-   						 </select>						
-					</div>
-					<div class="form-group">
+						</div>
+							<div class="form-group">
 							<label>contact</label>
 							<input name="contact" type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>image</label>
+							<label>Email</label>
+							<input name="email" type="email" class="form-control" required>
+						</div>					
+						<div class="form-group">
+							<label>Image</label>
 							<input name="image" type="file" class="form-control" required>
-						</div>
+						</div>					
+					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 						<input type="submit" class="btn btn-success" value="Add">
@@ -189,14 +152,14 @@
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	 {% for i in allstudents %}
+	 {% for i in staff %}
 	<div id="editEmployeeModal-{{forloop.counter}}" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form action = "{% url 'update' i.id %}" method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit student information</h4>
+						<h4 class="modal-title">Edit Staff information</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
@@ -204,68 +167,41 @@
 							<label>Name</label>
 							<input type="text" name="name" value="{{i.name}}" class="form-control" required>
 						</div>
-						<div class="form-group">
-							<label>Roll NO</label>
-							<input type="text" name="roll number" value="{{i.roll_number}}" class="form-control" required>
-						</div>
-							<div class="form-group">
-   					 <label for="gender">Gender</label>
-   				 <select name="gender" class="form-control" required>
-       				 <option value="">-- Select Gender --</option>
-        	<option value="male" {% if i.gender == "male" %}selected{% endif %}>Male</option>
-       	 <option value="female" {% if i.gender == "female" %}selected{% endif %}>Female</option>
-       			 <option value="other" {% if i.gender == "other" %}selected{% endif %}>Other</option>
-   												 </select>
-</div>
-
-						<div class="form-group">
-                         <label for="enroll_course">Enroll Course</label>
-                         <select name="enroll_course" class="form-control" required>
-                         <option value="">-- Select Course --</option>
-                        <option value="Python" {% if i.enroll_course == "Python" %}selected{% endif %}>Python</option>
-                         <option value="Java" {% if i.enroll_course == "Java" %}selected{% endif %}>Java</option>
-                      <option value="UI/UX" {% if i.enroll_course == "UI/UX" %}selected{% endif %}>UI/UX</option>
+									<div class="form-group">
+                         <label for="gender">Gender</label>
+                         <select name="gender" class="form-control" required>
+                         <option value="">-- Select Gender--</option>
+                        <option value="male" {% if i. gender== "male" %}selected{% endif %}>Male</option>
+                         <option value="female" {% if i.gender == "female" %}selected{% endif %}>Female</option>
+                     
                          </select>  
                        </div>
-					
+						
 						<div class="form-group">
-							<label>date of birth</label>
-							<input type="date" name="dob" value="{{i.dob}}" class="form-control" required>
-						</div>	
-							<div class="form-group">
-							<label>Parent</label>
-							<input type="text" name="parent_name" value="{{i.parent_name}}" class="form-control" required>
-						</div>	
-							<div class="form-group">
-							<label>Education</label>
-							<input type="text" name="edu" value="{{i.education}}" class="form-control" required>
-						</div>	
-								<div class="form-group">
-							<label>Email</label>
-							<input type="email" name="dob" value="{{i.email}}" class="form-control" required>
-						</div>	
+							<label>Position</label>
+							<input type="text" name="position" value="{{i.position}}" class="form-control" required>
+						</div>
+									
 						<div class="form-group">
-							<label>date of joining</label>
-							<input type="date" name="dob" value="{{i.date_of_joining}}" class="form-control" required>
+							<label>Experience</label>
+							<input type="text" name="experience" value="{{i.experience}}" class="form-control" required>
 						</div>	
 							<div class="form-group">
-   						 <label for="fees_paid">Fees paid</label>
-    					<select name="fees_paid" class="form-control" required>
-        				<option value="">-- Select option --</option>
-        				<option value="yes" {% if i.fees_paid == "yes" %}selected{% endif %}>Yes</option>
-        						<option value="no" {% if i.fees_paid == "no" %}selected{% endif %}>No</option>
-    							</select>  
-									</div>
-
-					   	<div class="form-group">
+							<label>Date  of joinig</label>
+							<input type="text" name="date_of_joining" value="{{i.date_of_joining}}" class="form-control" required>
+						</div>	
+							<div class="form-group">
 							<label>contact</label>
-							<input type="text" name="contact" value="{{i.contact}}" class="form-control" required>
-						</div>	
+							<input type="number" name="contact" value="{{i.contact}}" class="form-control" required>
+						</div>
 							<div class="form-group">
+							<label>Email</label>
+							<input type="email" name="email" value="{{i.email}}" class="form-control" required>
+						</div>					
+						<div class="form-group">
 							<label>Image</label>
-							<input type="file" name="image"   class="form-control" required>
-						</div>	
-							
+							<input type="file" name="image" class="form-control" required>
+						</div>					
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -277,13 +213,13 @@
 	</div>
 	{% endfor%}
 	<!-- Delete Modal HTML -->
-	 {% for i in allstudents%}
+	 {% for i in staff%}
 	<div id="deleteEmployeeModal-{{forloop.counter}}" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">						
-						<h4 class="modal-title">Delete student</h4>
+						<h4 class="modal-title">Delete Staff</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
